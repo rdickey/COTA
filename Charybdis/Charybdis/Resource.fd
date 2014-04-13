@@ -1,0 +1,58 @@
+!
+! C:\Users\vivek ahuja\Desktop\Research in Flight\Upcoming products\Char
+! ybdis\Charybdis\Charybdis\Resource.fd generated from C:\Users\vivek ah
+! uja\Desktop\Research in Flight\Upcoming products\Charybdis\Charybdis\C
+! harybdis\Resource.h
+!
+      integer, parameter :: IDC_VER3 = 1003
+      integer, parameter :: IDM_SAVE = 30004
+      integer, parameter :: IDC_VER4 = 1004
+      integer, parameter :: IDM_SHOW_MESH = 30023
+      integer, parameter :: IDM_COLOR_X = 30019
+      integer, parameter :: IDC_VER5 = 1005
+      integer, parameter :: IDM_COLOR_Z = 30020
+      integer, parameter :: IDB_BITMAP1 = 103
+      integer, parameter :: ID_SOLVER_PHYSICS = 30025
+      integer, parameter :: IDM_COLOR_MACH = 30022
+      integer, parameter :: IDM_PASTE = 30011
+      integer, parameter :: IDM_NO_COLOR = 30018
+      integer, parameter :: IDM_EXPORT_TECPLOT = 30032
+      integer, parameter :: IDC_EDIT1 = 1006
+      integer, parameter :: IDC_EDIT2 = 1007
+      integer, parameter :: IDC_EDIT3 = 1008
+      integer, parameter :: IDC_EDIT4 = 1009
+      integer, parameter :: IDM_PHYSICS_WALLS = 30028
+      integer, parameter :: IDM_PHYSICS_INTERFACE = 30030
+      integer, parameter :: IDM_HELPCONTENTS = 30012
+      integer, parameter :: IDM_PRINTSETUP = 30007
+      integer, parameter :: IDM_PHYSICS_INLET = 30026
+      integer, parameter :: IDM_UPDATE_SCENE = 30036
+      integer, parameter :: IDM_SAVEAS = 30005
+      integer, parameter :: IDM_IMPORT = 30031
+      integer, parameter :: IDM_CUT = 30009
+      integer, parameter :: IDM_COPY = 30010
+      integer, parameter :: IDM_SOLVER_SETUP = 30024
+      integer, parameter :: ID_MESH = 30033
+      integer, parameter :: IDM_HELPSEARCH = 30013
+      integer, parameter :: IDM_MESHER = 30034
+      integer, parameter :: IDM_COLOR_PRES = 30021
+      integer, parameter :: IDM_ABOUT = 30015
+      integer, parameter :: IDM_MOTION_STOP = 30038
+      integer, parameter :: IDM_EXIT = 30001
+      integer, parameter :: IDM_HELPHELP = 30014
+      integer, parameter :: IDM_PHYSICS_SYMMETRY = 30029
+      integer, parameter :: IDD_VEHICLE_SETUP = 101
+      integer, parameter :: IDM_NEW = 30002
+      integer, parameter :: IDM_SOLVER_RUN = 30016
+      integer, parameter :: IDM_OPEN = 30003
+      integer, parameter :: ID_VISUALIZATION_CONTOURS = 30017
+      integer, parameter :: IDM_VEHICLE_SETUP = 30039
+      integer, parameter :: IDM_PRINT = 30006
+      integer, parameter :: IDD_ASTERIOD_SETUP = 102
+      integer, parameter :: IDM_UNDO = 30008
+      integer, parameter :: IDC_VER1 = 1001
+      integer, parameter :: IDM_ASTERIOD_SETUP = 30040
+      integer, parameter :: IDC_VER2 = 1002
+      integer, parameter :: IDM_STOP = 30037
+      integer, parameter :: IDM_PHYSICS_OUTLET = 30027
+      integer, parameter :: IDM_MOTION_START = 30035

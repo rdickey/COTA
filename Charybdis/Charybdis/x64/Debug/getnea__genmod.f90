@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Sun Apr 13 12:35:46 2014
+        MODULE GETNEA__genmod
+          INTERFACE 
+            SUBROUTINE GETNEA
+            END SUBROUTINE GETNEA
+          END INTERFACE 
+        END MODULE GETNEA__genmod

@@ -1,0 +1,267 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+#include "winver.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+ABOUTDLG DIALOG 22, 17, 167, 64
+STYLE DS_MODALFRAME | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "About Charybdis"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,132,2,32,14
+    ICON            "Charybdis",-1,2,3,1,1
+    LTEXT           "CompanyName",IDC_VER1,30,2,100,8
+    LTEXT           "FileDescription",IDC_VER2,30,10,82,8
+    LTEXT           "ProductVersion",IDC_VER3,114,10,16,8
+    LTEXT           "LegalCopyright (c)",IDC_VER4,30,18,137,8
+    LTEXT           "LegalTrademarks",IDC_VER5,30,34,136,27
+    CONTROL         "",501,"Static",SS_BLACKRECT,28,31,138,1
+END
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_VEHICLE_SETUP DIALOGEX 0, 0, 181, 105
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Vehicle setup"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,65,84,50,14,BS_FLAT
+    LTEXT           "Tether length (m):",IDC_STATIC,14,17,60,8
+    LTEXT           "Vehicle mass at contact (kg):",IDC_STATIC,14,32,93,8
+    LTEXT           "Stability thruster Isp (sec):",IDC_STATIC,14,48,87,8
+    LTEXT           "Thrust (N):",IDC_STATIC,14,65,36,8
+    EDITTEXT        IDC_EDIT1,109,15,54,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT2,109,30,54,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT3,109,46,54,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT4,109,63,54,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+END
+
+IDD_ASTERIOD_SETUP DIALOGEX 0, 0, 181, 106
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Asteriod setup"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,65,85,50,14,BS_FLAT
+    LTEXT           "Mass (kg):",-1,15,17,34,8
+    LTEXT           "Moment of inertia (Rot. Axis):",-1,15,32,96,8
+    LTEXT           "Density (Kg/m^3):",-1,15,48,60,8
+    EDITTEXT        IDC_EDIT1,117,15,46,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT2,117,30,46,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT3,117,46,46,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT4,117,63,46,12,ES_CENTER | ES_AUTOHSCROLL | NOT WS_BORDER
+    LTEXT           "Angular velocity (Deg/sec):",-1,15,65,88,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+CHARYBDIS               ICON                    "Charybdis.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+CHARYBDIS MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        IDM_NEW
+        MENUITEM "&Open...",                    IDM_OPEN, GRAYED
+        MENUITEM "&Save",                       IDM_SAVE, GRAYED
+        MENUITEM "Save &As...",                 IDM_SAVEAS, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Import",                      30031
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "Setup"
+    BEGIN
+        MENUITEM "Vehicle data",                IDM_VEHICLE_SETUP
+        MENUITEM "Asteriod data",               30040
+    END
+    POPUP "Motion"
+    BEGIN
+        MENUITEM "Run",                         IDM_MOTION_START
+        MENUITEM SEPARATOR
+        MENUITEM "Stop",                        IDM_MOTION_STOP
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+CHARYBDIS ACCELERATORS
+BEGIN
+    VK_F1,          IDM_HELPCONTENTS,       VIRTKEY 
+    "?",            IDM_ABOUT,              ASCII,  ALT
+    "/",            IDM_ABOUT,              ASCII,  ALT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName", "My Company"
+            VALUE "FileDescription", "Charybdis Application"
+            VALUE "FileVersion", "1.0"
+            VALUE "InternalName", "Charybdis"
+            VALUE "ProductName", "Charybdis"
+            VALUE "ProductVersion", "1.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "#include ""winver.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_VEHICLE_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 174
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 98
+    END
+
+    IDD_ASTERIOD_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 174
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 99
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "Icon.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    0                       " "
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
