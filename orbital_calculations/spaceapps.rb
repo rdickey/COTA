@@ -53,7 +53,11 @@ end
 # PLUS turning ice into H2 and O2
 # PLUS all the extra bullshit
 def powerRequiredTotal(engine_specs, engine_count)
-  return (engine_specs[:power_kW] * engine_count) + powerFuelCreation(engine_specs, engine_count) + @power_required_minus_engines_and_fuel_creation_kW
+  return powerRequiredEngines(engine_specs, engine_count) + powerFuelCreation(engine_specs, engine_count) + @power_required_minus_engines_and_fuel_creation_kW
+end
+
+def powerRequiredEngines(engine_specs, engine_count)
+  return (engine_specs[:power_kW] * engine_count)
 end
 
 # http://www.space.com/51-asteroids-formation-discovery-and-exploration.html
@@ -86,8 +90,8 @@ def massAsteroidEnd(deltaV_km_s, engine_specs, mass_asteroid_start_kg)
   return mass_asteroid_start_kg / (Math::E ** (deltaV_km_s / (engine_specs[:isp_s] * 9.8)))
 end
 
-def timeOfJourney(p1='FIXME',p2='FIXME',p3='FIXME')
-  return -1
+def timeOfJourney(deltaV_km_s, engine_specs, mass_asteroid_start_kg)
+  return (@mass_asteroid_start_kg - massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)) / (engine_specs[:propellant_used_kg_s] * 3600.0 * 24.0)
 end
 
 
@@ -105,6 +109,8 @@ end
   puts "For deltaV #{@deltaV_km_s} asteroid mass #{@mass_asteroid_start_kg} and engine name #{engine_name}..."
   puts "  massSolarArray  is  #{(massSolarArray(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kg"
   puts "  areaSolarArray  is  #{(areaSolarArray(engine_specs, @engine_count)).round(3).to_s.rjust(12)} m^2"
+  puts "  powerEngines  is  #{(powerRequiredEngines(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kW"
+  puts "  powerFuelCreate is  #{(powerFuelCreation(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kW"
   puts "  massSpacecraft  is  #{(massSpacecraft(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kg"
   puts "  massAsteroidEnd is  #{(massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)).round(3).to_s.rjust(12)} kg"
   puts "  massAsteroidUsed is #{(@mass_asteroid_start_kg - massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)).round(3).to_s.rjust(12)} kg"
