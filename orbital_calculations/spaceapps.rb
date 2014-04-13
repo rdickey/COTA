@@ -1,14 +1,25 @@
 #!/usr/bin/env ruby
 
 @engine_type = {
-  :ion => {
+  :ion_nstar => {
     :thrust_N => 0.092,
     :power_kW => 2.3,
     :eff_pct => 70.0,
     :isp_s => 3100.0,
     :Ve_km_s => 31.0,
     :mass_kg => 30,  # estimated based on a paper
-    :propellant_used_kg_s => 0.00000227777796  # estimated based on http://www.grc.nasa.gov/WWW/ion/past/90s/nstar.htm
+    :propellant_used_kg_s => 0.00000227777796,  # estimated based on http://www.grc.nasa.gov/WWW/ion/past/90s/nstar.htm
+    :hydrogen_only => true
+  },
+  :ion_ideal => {
+    :thrust_N => 0.092,
+    :power_kW => 2.3,
+    :eff_pct => 70.0,
+    :isp_s => 3100.0,
+    :Ve_km_s => 31.0,
+    :mass_kg => 30,  # estimated based on a paper
+    :propellant_used_kg_s => 0.00000227777796,  # estimated based on http://www.grc.nasa.gov/WWW/ion/past/90s/nstar.htm
+    :hydrogen_only => true
   },
   :vasimr => {
     :thrust_N => 5.0,
@@ -17,7 +28,8 @@
     :isp_s => 5000.0,
     :Ve_km_s => 50.0,
     :mass_kg => 260,  # estimated based on a paper
-    :propellant_used_kg_s => 0.00805152979066  # estimated based on 23d trip with 8t of fuel
+    :propellant_used_kg_s => 0.00805152979066,  # estimated based on 23d trip with 8t of fuel
+    :hydrogen_only => true
   }
 }
 
@@ -74,15 +86,25 @@ end
 #   1 kWh = 3600000 J, so 18000000 J/kg efficient
 #   Energy = mass_kg * 18000000 J/kg
 #   Power = mass_kg * 18000000 J/kg/s
+# Totals
+#   146000 + 333550 = 479550  # so
+# powerFuelCreation = mass_kg * 479550
+def powerFuelCreation(engine_specs, engine_count)
+  # assume 50% power efficiency, so double what we "think" we'll have
+  return engine_specs[:propellant_used_kg_s] * 479550.0 * 2.0
+end
+
 # Need to turn propellant_used_kg_s of ice into H2 and O2 every second by melting ice and electrolysing.
 # powerFuelCreation = mass_kg * 146000 J/kg/s + mass_kg * 333550 J/kg/s + mass_kg * 18000000 J/kg/s)
 #   146000 + 333550 + 18000000 = 18479550  # so... melting ice negligable, electrolysis is everything
 # powerFuelCreation = mass_kg * 18479550
-def powerFuelCreation(engine_specs, engine_count)
-  # may need engine_specs[:propellant_used_kg_s]
-  return engine_specs[:propellant_used_kg_s] * 18479550.0
+def powerFuelCreationHydrogenOnly(engine_specs, engine_count)
+  # Since hydrogen will make up only 1/4 of the mass, we need to 4x the power
+  # assume 50% power efficiency, so double what we "think" we'll have
+  return engine_specs[:propellant_used_kg_s] * 18479550.0 * 4.0 * 2.0
 end
 
+# Ideal rocket equation: http://exploration.grc.nasa.gov/education/rocket/rktpow.html
 # deltaV_km_s = isp * g * ln ( (mass_asteroid_start_kg)) / mass_asteroid_end_kg)
 # (mass_asteroid_start_kg) / mass_asteroid_end_kg = e ^ (deltaV_km_s / (isp * g)
 # mass_asteroid_end_kg = mass_asteroid_start_kg / (e ^ (deltaV_km_s / (isp * g)))
@@ -100,20 +122,29 @@ end
 # Things we want to know: time to achieve deltaV_km_s, end mass of asteroid
 
 # Givens
-@deltaV_km_s = 1000
+@deltaV_km_s = 10
 @mass_asteroid_start_kg = 2000000
 @engine_count = 4
 
 # Now calculate for each type
 @engine_type.each do |engine_name, engine_specs|
+  mass_solar_array   = massSolarArray(engine_specs, @engine_count).round(3)     # kg
+  area_solar_array   = areaSolarArray(engine_specs, @engine_count).round(3)     # m^2
+  power_engines      = powerRequiredEngines(engine_specs, @engine_count).round(3) # kW
+  power_fuel_create  = powerFuelCreation(engine_specs, @engine_count).round(3) # kW
+  mass_spacecraft    = massSpacecraft(engine_specs, @engine_count).round(3)     # kg
+  mass_asteroid_end  = massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg).round(3)  #kg
+  mass_asteroid_used = (@mass_asteroid_start_kg - massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)).round(3)  # kg
+  time_of_journey    = timeOfJourney(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg).round(3)  # days
+
   puts "For deltaV #{@deltaV_km_s} asteroid mass #{@mass_asteroid_start_kg} and engine name #{engine_name}..."
-  puts "  massSolarArray  is  #{(massSolarArray(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kg"
-  puts "  areaSolarArray  is  #{(areaSolarArray(engine_specs, @engine_count)).round(3).to_s.rjust(12)} m^2"
-  puts "  powerEngines  is  #{(powerRequiredEngines(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kW"
-  puts "  powerFuelCreate is  #{(powerFuelCreation(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kW"
-  puts "  massSpacecraft  is  #{(massSpacecraft(engine_specs, @engine_count)).round(3).to_s.rjust(12)} kg"
-  puts "  massAsteroidEnd is  #{(massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)).round(3).to_s.rjust(12)} kg"
-  puts "  massAsteroidUsed is #{(@mass_asteroid_start_kg - massAsteroidEnd(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)).round(3).to_s.rjust(12)} kg"
-  puts "  timeOfJourney  is   #{(timeOfJourney(@deltaV_km_s, engine_specs, @mass_asteroid_start_kg)).round(3).to_s.rjust(12)} days"
+  puts "  massSolarArray   is  #{(mass_solar_array).to_s.rjust(12)} kg   (#{(mass_solar_array/2000.0).round(3)} t)"
+  puts "  areaSolarArray   is  #{(area_solar_array).to_s.rjust(12)} m^2"
+  puts "  powerEngines     is  #{(power_engines).to_s.rjust(12)} kW"
+  puts "  powerFuelCreate  is  #{(power_fuel_create).to_s.rjust(12)} kW"
+  puts "  massSpacecraft   is  #{(mass_spacecraft).to_s.rjust(12)} kg      (#{(mass_spacecraft/2000.0).round(3)} t)"
+  puts "  massAsteroidEnd  is  #{(mass_asteroid_end).to_s.rjust(12)} kg    (#{(mass_asteroid_end/2000.0).round(3)} t)"
+  puts "  massAsteroidUsed is  #{(mass_asteroid_used).to_s.rjust(12)} kg   (#{(mass_asteroid_used/2000.0).round(3)} t)"
+  puts "  timeOfJourney    is  #{(time_of_journey).to_s.rjust(12)} days    (#{(time_of_journey/30.0).round(3)})"
   puts
 end
